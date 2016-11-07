@@ -1,0 +1,39 @@
+body>div{
+        width:60%;
+        margin-left:20%;
+   }
+
+#headerbar{
+        height:100px;
+        background-color: #79BFB4;
+        font-family: "Helvetica", sans;
+        color: white;
+    }
+    
+#headerbar>h1{
+        font-size: 48px;
+        padding-top: 20px;
+        padding-left: 50px;
+    }
+    
+#searcharea{
+        padding: 10px 0px 10px 0px;
+        border-bottom: solid #79BFB4 2px;
+        font-family: "Helvetica", sans;
+    }
+
+#searchbutton{
+        background-color: #79BFB4;
+        color: white;
+    }
+
+#result{
+     
+        font-family: "Helvetica", sans;
+    }
+    
+#result>h3{
+        font-size: 24px;   
+        font-weight: bold;
+        color: #79BFB4;
+    }

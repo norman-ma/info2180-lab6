@@ -1,18 +1,29 @@
 <html>
     <head>
+        <title>Dictionary</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
-        <button type="button" id="searchbutton">Search</button>
+        <div id="headerbar">
+            <h1>Dictionary</h1>
+        </div>
+        <div id="searcharea">
+            <input type="textarea" name="searchbar" id="searchbar">
+            <input type="submit" id="searchbutton" value="Search">
+        </div>
+        <div id="result"></div>
     </body>
     
     <script>
+    
         var xhttp = new XMLHttpRequest();
+        var text = document.getElementById("searchbar");
         xhttp.onreadystatechange = function(){
-            setTimeout(alert(xhttp.responseText),1000);
+            document.getElementById("result").innerHTML = xhttp.responseText;
         }
         document.getElementById("searchbutton").onclick = request;
         function request(){
-            xhttp.open("GET","request.php?q=definition",true);
+            xhttp.open("GET","request.php?q="+text.value,true);
             xhttp.send();
         }
         
