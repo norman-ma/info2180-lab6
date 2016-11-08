@@ -9,7 +9,8 @@
         </div>
         <div id="searcharea">
             <input type="textarea" name="searchbar" id="searchbar">
-            <input type="submit" id="searchbutton" value="Search">
+            <input type="submit" class="button" id="searchbutton" value="Search">
+            <input type="submit" class="button" id="getallbutton" value="Get All Definitons">
         </div>
         <div id="result"></div>
     </body>
@@ -18,12 +19,45 @@
     
         var xhttp = new XMLHttpRequest();
         var text = document.getElementById("searchbar");
+        var xml,x;
+        
         xhttp.onreadystatechange = function(){
-            document.getElementById("result").innerHTML = xhttp.responseText;
+            xml = xhttp.responseXML;
+            x = xml.getElementsByTagName("definition");
+            var l = document.createElement("UL");
+            for(var i = 0; i<x.length;i++){
+                var li = document.createElement("LI");
+                var h = document.createElement("H3");
+                var t1 = document.createTextNode(x[i].getAttribute("name").toUpperCase());
+                h.appendChild(t1);
+                var def = document.createElement("P");
+                var t2 = document.createTextNode(x[i].childNodes[0].nodeValue);
+                var t3 = document.createTextNode(" — "+x[i].getAttribute("author"));
+                def.appendChild(t2);
+                def.appendChild(document.createElement("BR"));
+                def.appendChild(t3);
+                
+                li.appendChild(h);
+                li.appendChild(def);
+                
+                l.appendChild(li);
+            }
+            document.getElementById("result").appendChild(l);
         }
+        
         document.getElementById("searchbutton").onclick = request;
         function request(){
-            xhttp.open("GET","request.php?q="+text.value,true);
+            document.getElementById("result").innerHTML = "";
+            
+            xhttp.open("GET","request.php?q="+text.value.toLowerCase()+"&all=false",true);
+            xhttp.send();
+        }
+        
+        document.getElementById("getallbutton").onclick = getAll;
+        function getAll(){
+            document.getElementById("result").innerHTML = "";
+            
+            xhttp.open("GET","request.php?q=&all=true",true);
             xhttp.send();
         }
         
